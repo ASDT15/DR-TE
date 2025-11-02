@@ -741,10 +741,12 @@
   <script>
     // --- المنتجات اليدوية ---
     let products = [
+      
       {
         id: 1,
         name: "🔥 حذاء الرمادي القوي بياده ☣",
         price: 4499,
+        
         oldPrice: 5500,
         description: "بوتي جميل المنظر للخرجات الجميلة والملابس الرائعة",
         image: "product-images/images-1/1.jpg",
@@ -790,9 +792,10 @@
         image: "product-images/images-5/1.jpg",
         type: "احذيه رجالي",
         available_sizes: ["40", "41", "42", "43", "44"]
+        
       }
     ];
-
+const YER_TO_SAR = 140; // يمكنك تحديث هذا الرقم حسب سعر الصرف الحالي
     // --- المتغيرات الثابتة ---
     const STORAGE_KEY = "dreamtime_cart";
     let soundEnabled = false;
@@ -851,11 +854,18 @@
                 <div class="card-desc">${shortDescription}</div>
                 
                 <div class="card-price-container">
-                    <div class="card-price-current">
-                        <span class="card-price-currency">ريال يمني</span>
-                        <span>${Math.round(product.price)}</span>
-                    </div>
-                    <div class="card-price-old">ريال يمني ${Math.round(oldPrice)}</div>
+                  <div class="card-price-container">
+  <!-- السعر الحالي -->
+  <div class="card-price-current">
+    <span style="color:#000000; font-weight:bold;">${Math.round(product.price)} ر.يمني</span>
+    <span style="color:#47a6ff; font-weight:bold; margin-right:8px;">(${Math.round(product.price / YER_TO_SAR)} ر.سعودي)</span>
+  </div>
+
+  <!-- السعر القديم (المشطوب) -->
+  <div class="card-price-old" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+    <span style="color:#ff0000;">${Math.round(oldPrice)} ر.يمني</span>
+    <span style="color:#ff0000;">(${Math.round(oldPrice / YER_TO_SAR)} ر.سعودي)</span>
+  </div>
                     <div class="card-promo">
                         <span class="grab-deal">اغتنم الفرصة 👌</span>
                         <span class="free-shipping"> توصيل مجاني في صنعاء  🚚</span>
@@ -982,7 +992,8 @@
         }
         total += item.price * item.quantity;
       });
-      cartTotal.textContent = "الإجمالي: " + Math.round(total) + " ريال يمني";
+     const totalSAR = Math.round(total / YER_TO_SAR);
+cartTotal.textContent = `الإجمالي: ${Math.round(total)} ر.ي (${totalSAR} ر.س)`;
     }
 
     function emptyCart() {

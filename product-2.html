@@ -820,11 +820,7 @@
       </div>
       <div class="product-info">
         <span class="price-amount">اغتنم الفرصه 👌</span><span class="free-shipping"> توصيل مجاني في صنعاء</span>
-        <div class="product-price">
-          <span class="currency-label">ريال يمني</span>
-          <span class="price-amount">4499 </span>
-          <del class="old-price">7500 قبل الخصم</del>
-        </div>
+ <div id="dynamicPrice" class="product-price"></div>
         <div class="size-controls" id="sizeControlsContainer">
           <span class="currency-label"> اختر مقاسك </span>
           <button class="size-btn active" onclick="selectSize('40', this)">40</button>
@@ -949,6 +945,7 @@
     const STORAGE_KEY = "dreamtime_cart";
     let soundEnabled = false;
     let selectedSize = '40';
+    const YER_TO_SAR = 140; // غيّر الرقم حسب سعر الصرف الفعلي
     let currentSlideIndex = 0;
     const slides = document.querySelectorAll('.slider-item');
     const totalSlides = slides.length;
@@ -1446,7 +1443,26 @@
         aiSendMessage.click();
       }
     };
+ function renderProductPrice(currentPrice, oldPrice) {
+  const currentSAR = Math.round(currentPrice / YER_TO_SAR);
+  const oldSAR = Math.round(oldPrice / YER_TO_SAR);
 
+  const priceHTML = `
+    <!-- السعر الحالي -->
+    <div style="display: flex; align-items: flex-end; gap: 6px; flex-wrap: wrap;">
+      <span style="color:#000000; font-weight:bold; font-size:1.3rem;">${currentPrice} ر.يمني</span>
+      <span style="color:#47a6ff; font-weight:bold; font-size:1.3rem;">(${currentSAR} ر.سعودي)</span>
+    </div>
+
+    <!-- السعر القديم (المشطوب) -->
+    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+      <del style="color:#ff0000; text-decoration:line-through; font-size:1rem;">${oldPrice} ر.يمني</del>
+      <del style="color:#ff0000; text-decoration:line-through; font-size:1rem;">(${oldSAR} ر.سعودي)</del>
+    </div>
+  `;
+
+  document.getElementById('dynamicPrice').innerHTML = priceHTML;
+}
     document.addEventListener("DOMContentLoaded", function () {
       const savedSoundState = localStorage.getItem('soundEnabled');
       soundEnabled = savedSoundState === 'true';
@@ -1457,6 +1473,7 @@
       }
       const soundButton = document.getElementById('soundButton');
       if (soundButton) soundButton.addEventListener('click', toggleSound);
+       renderProductPrice(4499, 5500); // ← غيّر 5500 إلى السعر القديم الفعلي للمنتج
       updateCartCount();
       displayReviews();
     });
