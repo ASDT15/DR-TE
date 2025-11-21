@@ -304,7 +304,7 @@
       font-size: 1.2rem;
       font-weight: bold;
       color: #000000;
-      margin-bottom: 10px;
+      margin-bottom: 0px;
     }
     .card-desc {
       font-size: 0.95rem;
@@ -348,11 +348,13 @@
       gap: 8px;
       margin-top: 6px;
       flex-wrap: wrap;
+
     }
 
     .card-promo span {
       font-size: 0.85rem;
       font-weight: bold;
+      color: #139af3 ;
     }
 
     .free-shipping {
@@ -722,7 +724,89 @@
   color: #333;
   margin-top: 2px;
 }
-/* --- النهاية: أضف هذه الفئات إلى CSS --- */
+/* تقصير بطاقات العرض على الجوال فقط */
+@media (max-width: 576px) {
+  /* تقليل ارتفاع صورة المنتج */
+  .image-container {
+    height: 180px; /* كان 250px أو 300px */
+  }
+
+  /* تقليل الحشو داخل البطاقة */
+  .card-body {
+    padding: 0px; /* كان 15px أو 20px */
+  }
+
+  /* تقليل حجم ومسافات النصوص */
+  .card-title {
+    font-size: 0.9rem;
+    margin-bottom: 0px;
+  }
+
+  .card-desc {
+    font-size: 0.7rem;
+    margin-bottom: 0px;
+    min-height: 0em; /* يكفي لسطر إلى سطرين */
+    display: -webkit-box;
+    -webkit-line-clamp: 0;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* تقليل المسافة تحت السعر */
+  .card-price-container {
+    margin-bottom: 0px;
+  }
+
+  /* تقليل حجم السعر */
+  .card-price-current {
+    font-size: 0.78rem;
+  }
+
+  .card-price-old {
+    font-size: 0.6rem;
+  }
+
+  /* تقليل المسافة بين أزرار المقاس واللون */
+  .size-controls,
+  .color-controls-card {
+    margin-bottom: 5px;
+    gap: 3px;
+  }
+
+  .size-btn,
+  .color-option-card {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .color-name-card {
+    font-size: 0.65rem;
+  }
+
+  /* تقليل زر "أضف إلى السلة" */
+  .add-to-cart {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 576px) {
+  .grab-deal {
+    font-size: 0.7rem !important; /* أو 0.65rem حسب رغبتك */
+  }
+
+  /* اختياري: تصغير "توصيل مجاني" أيضًا */
+  .free-shipping {
+    font-size: 0.7rem !important;
+  }
+}
+@media (max-width: 576px) {
+  .size-selector-label {
+    font-size: 0.55rem !important; /* أو 0.6rem حسب رغبتك */
+    color: #666; /* اختياري: تثبيت اللون إن أردت */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -823,7 +907,7 @@
       
       {
         id: 1,
-        name: "🔥 بياده خفيفه انيقه قويه☣",
+        name: "🔥 بياده خفيفه قويه☣",
         price: 3200,
         oldPrice: 8500,
         description: "اضغط للمزيد",
@@ -1030,8 +1114,8 @@ const YER_TO_SAR = 140; // يمكنك تحديث هذا الرقم حسب سعر
     <span style="color:#ff0000;">(${Math.round(oldPrice / YER_TO_SAR)} ر.سعودي)</span>
   </div>
                     <div class="card-promo">
-                        <span class="grab-deal">اغتنم الفرصة 👌</span>
-                        <span class="free-shipping"> توصيل مجاني في صنعاء  🚚</span>
+                        <span class="grab-deal">اغتنم الفرصة 👌توصيل مجاني في صنعاء  🚚</span>
+                     
                     </div>
                 </div>
 
